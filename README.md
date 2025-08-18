@@ -151,7 +151,7 @@ result
 ```
 
 ## Reconstruct & Evaluation
----
+
 Reconstruct images from ../Data/leaderboard. Reconstructed images are saved in:
 
 ``` bash
