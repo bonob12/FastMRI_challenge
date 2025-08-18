@@ -61,34 +61,35 @@ Parallel training on multiple GPUs is recommended. Using tmux is optional but co
 # use tmux for convinience (not necessary)
 tmux new -s train
 tmux attach -t train
+
+# detach
+ctrl b + d
+
+# attach
+tmux attach -t train
 ```
 
-*train cnn *
+**Train Models**
+
 ``` bash
+# train cnn
 sh train_cnn.sh
-```
 
-*train brain_acc4 *
-``` bash
+# train brain_acc4
 sh train_brain_acc4_step1.sh ; sh train_brain_acc4_step2.sh ; sh train_brain_acc4_step3.sh
-```
 
-*train brain_acc8 *
-``` bash
+# train brain_acc8
 sh train_brain_acc8_step1.sh ; sh train_brain_acc8_step2.sh ; sh train_brain_acc8_step3.sh
-```
 
-*train knee_acc4 *
-``` bash
+# train knee_acc4
 sh train_knee_acc4_step1.sh ; sh train_knee_acc4_step2.sh ; sh train_knee_acc4_step3.sh
-```
 
-*train knee_acc8 *
-``` bash
+# train knee_acc8
 sh train_knee_acc8_step1.sh ; sh train_knee_acc8_step2.sh ; sh train_knee_acc8_step3.sh
 ```
 
-*Result Structure *
+**Result Structure**
+
 After training, results are saved in ../result:
 
 ``` bash
@@ -162,11 +163,11 @@ Can modify reconstruct.sh to use specific checkpoint paths:
 ``` bash
 # Example
 brain_acc4_checkpoint ../result/test_brain_acc4/checkpoints/step3/epoch-45
-# Example
+->
 brain_acc4_checkpoint ../artifacts/brain_acc4
 ```
 
-*Run reconstruction and evaluation *
+**Run reconstruction and evaluation**
 
 ``` bash
 sh reconstruct.sh
