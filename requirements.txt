@@ -1,0 +1,11 @@
+numpy
+requests
+tqdm
+h5py
+scikit-image
+pyyaml
+opencv-python
+matplotlib
+wandb
+deepspeed
+mpi4py
