@@ -1,32 +1,33 @@
 # FastMRI_challenge
----
+
 This repository contains the implementation of Team EJ's 2025 FastMRI challenge
 
-## Install
----
+## Installation
+
 ``` bash
 # Clone repository
 git clone https://github.com/bonob12/FastMRI_challenge.git
 
-# password (read_only permisson for this repository)
+# Password (read_only permisson for this repository)
 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
 
+# Enter repository
 cd FastMRI_challenge
 
-# install venv
+# Create virtual environment
 python -m venv venv
 source venv/bin/activate
 
-# install dependencies
+# Install dependencies
 sh requirements.sh
 sh apt.sh
 ``` 
 
-## Data preparement
----
-validation dataset not used
-train dataset needs to be seperated into brain / knee with following structure
+## Data Preparation
 
+Validation dataset is not used. The training dataset must be separated into brain and knee with the following structure:
+
+``` bash
 root
 ├── Data
 │   ├── leaderboard
@@ -50,35 +51,47 @@ root
 │   └── ...
 └── result
     └── ...
+```
 
-## Train
----
-Parallel training with multiple GPU recommended
+## Training
+
+Parallel training on multiple GPUs is recommended. Using tmux is optional but convenient:
 
 ``` bash
 # use tmux for convinience (not necessary)
 tmux new -s train
 tmux attach -t train
-
-# train cnn
-sh train_cnn.sh
-
-# train brain_acc4
-sh train_brain_acc4_step1.sh ; sh train_brain_acc4_step2.sh ; sh train_brain_acc4_step3.sh
-
-# train brain_acc8
-sh train_brain_acc8_step1.sh ; sh train_brain_acc8_step2.sh ; sh train_brain_acc8_step3.sh
-
-# train knee_acc4
-sh train_knee_acc4_step1.sh ; sh train_knee_acc4_step2.sh ; sh train_knee_acc4_step3.sh
-
-# train knee_acc8
-sh train_knee_acc8_step1.sh ; sh train_knee_acc8_step2.sh ; sh train_knee_acc8_step3.sh
-
 ```
 
-Results are saved in ../result folder with following structure
+*train cnn *
+``` bash
+sh train_cnn.sh
+```
 
+*train brain_acc4 *
+``` bash
+sh train_brain_acc4_step1.sh ; sh train_brain_acc4_step2.sh ; sh train_brain_acc4_step3.sh
+```
+
+*train brain_acc8 *
+``` bash
+sh train_brain_acc8_step1.sh ; sh train_brain_acc8_step2.sh ; sh train_brain_acc8_step3.sh
+```
+
+*train knee_acc4 *
+``` bash
+sh train_knee_acc4_step1.sh ; sh train_knee_acc4_step2.sh ; sh train_knee_acc4_step3.sh
+```
+
+*train knee_acc8 *
+``` bash
+sh train_knee_acc8_step1.sh ; sh train_knee_acc8_step2.sh ; sh train_knee_acc8_step3.sh
+```
+
+*Result Structure *
+After training, results are saved in ../result:
+
+``` bash
 result
 ├── test_cnn
 │   ├── checkpoints
@@ -134,12 +147,26 @@ result
 │   └── ...
 └── test_reconstruct
     └── ...
+```
 
 ## Reconstruct & Evaluation
 ---
-reconstruct images from ../Data/leaderboard
-reconsturcted images saved at ../result/test_reconstruct/reconstructions
-can modify reconstruct.sh (ex. brain_acc4_checkpoint ../result/test_brain_acc4/checkpoints/step3/epoch-45 -> ../artifacts/brain_acc4) to use submitted model_weights
+Reconstruct images from ../Data/leaderboard. Reconstructed images are saved in:
+
+``` bash
+../result/test_reconstruct/reconstructions
+```
+
+Can modify reconstruct.sh to use specific checkpoint paths:
+
+``` bash
+# Example
+brain_acc4_checkpoint ../result/test_brain_acc4/checkpoints/step3/epoch-45
+# Example
+brain_acc4_checkpoint ../artifacts/brain_acc4
+```
+
+*Run reconstruction and evaluation *
 
 ``` bash
 sh reconstruct.sh
