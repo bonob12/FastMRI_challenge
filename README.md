@@ -73,19 +73,19 @@ tmux attach -t train
 
 ``` bash
 # train cnn
-sh train_cnn.sh
+sh scripts/train_cnn.sh
 
 # train brain_acc4
-sh train_brain_acc4_step1.sh ; sh train_brain_acc4_step2.sh ; sh train_brain_acc4_step3.sh
+sh scripts/train_brain_acc4_step1.sh ; sh scripts/train_brain_acc4_step2.sh ; sh scripts/train_brain_acc4_step3.sh
 
 # train brain_acc8
-sh train_brain_acc8_step1.sh ; sh train_brain_acc8_step2.sh ; sh train_brain_acc8_step3.sh
+sh scripts/train_brain_acc8_step1.sh ; sh scripts/train_brain_acc8_step2.sh ; sh scripts/train_brain_acc8_step3.sh
 
 # train knee_acc4
-sh train_knee_acc4_step1.sh ; sh train_knee_acc4_step2.sh ; sh train_knee_acc4_step3.sh
+sh scripts/train_knee_acc4_step1.sh ; sh scripts/train_knee_acc4_step2.sh ; sh scripts/train_knee_acc4_step3.sh
 
 # train knee_acc8
-sh train_knee_acc8_step1.sh ; sh train_knee_acc8_step2.sh ; sh train_knee_acc8_step3.sh
+sh scripts/train_knee_acc8_step1.sh ; sh scripts/train_knee_acc8_step2.sh ; sh scripts/train_knee_acc8_step3.sh
 ```
 
 **Result Structure**
@@ -170,8 +170,8 @@ brain_acc4_checkpoint ../artifacts/brain_acc4
 **Run reconstruction and evaluation**
 
 ``` bash
-sh reconstruct.sh
+sh scripts/reconstruct.sh
 
-sh leaderboard_eval.sh
+sh scripts/leaderboard_eval.sh
 ```
 
