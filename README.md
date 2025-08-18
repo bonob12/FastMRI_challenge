@@ -122,7 +122,7 @@ result
 │   │   │   │   ├── mp_rank_00_model_states.pt
 │   │   │   │   └── zero_pp_rank_0_mp_rank_00_optim_states.pt
 │   │   │   ...
-│   │   │   └── epoch-15
+│   │   │   └── epoch-30
 │   │   │       └── ...
 │   │   └── step3
 │   │   │   ├── eopch-31
@@ -155,7 +155,7 @@ result
 Reconstruct images from ../Data/leaderboard. Reconstructed images are saved in:
 
 ``` bash
-../result/test_reconstruct/reconstructions
+../result/test_reconstruct/reconstructions_leaderboard
 ```
 
 Can modify reconstruct.sh to use specific checkpoint paths:

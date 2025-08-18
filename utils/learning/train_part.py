@@ -131,34 +131,22 @@ def train(args):
     print('Current cuda device: ', torch.cuda.current_device())
 
     wandb.init(
-        project=str(args.net_name),    
+        project="FastMRI_challenge",    
         dir=f"../result/{args.net_name}",
         config=vars(args),
+        name=f"{args.net_name}_step{args.step}"
     )
 
     seed_fix(args.seed, args.deterministic)
-    timestamp = datetime.datetime.now().strftime("%m%d_%H%M%S")
-    wandb.run.name = run_name = f"{timestamp}-{wandb.run.id}"
-    wandb.config.update({"run_name": run_name})
 
-    args.exp_dir = Path('../result') / args.net_name / 'checkpoints' / run_name
-    args.loss_log_dir = Path('../result') / args.net_name / 'loss_log' / run_name
+    args.exp_dir = Path('../result') / args.net_name / 'checkpoints' / f"step{args.step}"
+    args.loss_log_dir = Path('../result') / args.net_name / 'loss_log' / f"step{args.step}"
     args.exp_dir.mkdir(parents=True, exist_ok=True)
     args.loss_log_dir.mkdir(parents=True, exist_ok=True)
 
     ModelClass = resolve_class(args.model_name)
 
-    if args.model_name.endswith('VarNet'):
-        model = ModelClass(
-            num_cascades=args.cascade, 
-            chans=args.chans, 
-            pools=args.pools,
-            sens_chans=args.sens_chans,
-            sens_pools=args.sens_pools,
-        )
-        loss_type = SSIMLoss().to(device=device)
-        slicedata = 'FastmriSliceData'
-    elif args.model_name.endswith('PromptMR'):
+    if args.model_name.endswith('PromptMR'):
         model = ModelClass(
             num_cascades=args.num_cascades,
             num_adj_slices=args.num_adj_slices,
@@ -284,18 +272,14 @@ def train(args):
         print(f"{'TrainLoss':<10}: {train_loss:9.4g}")
         print(f"{'TrainTime':<10}: {train_time:8.2f}s")
  
-        if slicedata != 'FastmriSliceData':
-            wandb.log({
-                    "train_loss": train_loss
-                },
-                step=(epoch+1)*steps_per_epoch-1
-            )
-        else:
-            wandb.log({
-                    "train_loss": train_loss
-                },
-                step=(epoch+1)*steps_per_epoch-1
-            )
+        wandb.log({
+                "train_loss": train_loss
+            },
+            step=(epoch+1)*steps_per_epoch-1
+        )
+
+        if epoch + 1 == args.stop_epoch:
+            break
 
     if wandb.run is not None:
         wandb.finish()

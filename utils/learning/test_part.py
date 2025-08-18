@@ -93,40 +93,31 @@ def forward(args):
             num_adj_slices[task][acc] = saved_args.num_adj_slices if hasattr(saved_args, 'num_adj_slices') else 1
             model_name = saved_args.model_name
             ModelClass = resolve_class(model_name)
-            if model_name.endswith('VarNet'):
-                model_instance = ModelClass(
-                    num_cascades=saved_args.cascade, 
-                    chans=saved_args.chans, 
-                    pools=saved_args.pools,
-                    sens_chans=saved_args.sens_chans,
-                    sens_pools=saved_args.sens_pools,
-                ).to(device=device)
-            elif model_name.endswith('PromptMR'):
-                model_instance = ModelClass(
-                    num_cascades=saved_args.num_cascades,
-                    num_adj_slices=saved_args.num_adj_slices,
-                    n_feat0=saved_args.n_feat0,
-                    feature_dim=saved_args.feature_dim,
-                    prompt_dim=saved_args.prompt_dim,
-                    sens_n_feat0=saved_args.sens_n_feat0,
-                    sens_feature_dim=saved_args.sens_feature_dim,
-                    sens_prompt_dim=saved_args.sens_prompt_dim,
-                    len_prompt=saved_args.len_prompt,
-                    prompt_size=saved_args.prompt_size,
-                    n_enc_cab=saved_args.n_enc_cab,
-                    n_dec_cab=saved_args.n_dec_cab,
-                    n_skip_cab=saved_args.n_skip_cab,
-                    n_bottleneck_cab=saved_args.n_bottleneck_cab,
-                    n_buffer=saved_args.n_buffer,
-                    n_history=saved_args.n_history,
-                    no_use_ca=saved_args.no_use_ca,
-                    learnable_prompt=saved_args.learnable_prompt,
-                    adaptive_input=saved_args.adaptive_input,
-                    use_sens_adj=saved_args.use_sens_adj,
-                    compute_sens_per_coil=False,
-                ).to(device=device)
-            else:
-                raise ValueError("No matching model")
+
+            model_instance = ModelClass(
+                num_cascades=saved_args.num_cascades,
+                num_adj_slices=saved_args.num_adj_slices,
+                n_feat0=saved_args.n_feat0,
+                feature_dim=saved_args.feature_dim,
+                prompt_dim=saved_args.prompt_dim,
+                sens_n_feat0=saved_args.sens_n_feat0,
+                sens_feature_dim=saved_args.sens_feature_dim,
+                sens_prompt_dim=saved_args.sens_prompt_dim,
+                len_prompt=saved_args.len_prompt,
+                prompt_size=saved_args.prompt_size,
+                n_enc_cab=saved_args.n_enc_cab,
+                n_dec_cab=saved_args.n_dec_cab,
+                n_skip_cab=saved_args.n_skip_cab,
+                n_bottleneck_cab=saved_args.n_bottleneck_cab,
+                n_buffer=saved_args.n_buffer,
+                n_history=saved_args.n_history,
+                no_use_ca=saved_args.no_use_ca,
+                learnable_prompt=saved_args.learnable_prompt,
+                adaptive_input=saved_args.adaptive_input,
+                use_sens_adj=saved_args.use_sens_adj,
+                compute_sens_per_coil=False,
+            ).to(device=device)
+            
             model[task][acc]=model_instance
 
     print(f"cnn: epoch={checkpoint['cnn']['epoch']}")

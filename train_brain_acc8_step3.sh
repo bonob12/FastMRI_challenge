@@ -1,0 +1,56 @@
+python train.py \
+--net_name test_brain_acc8 \
+--model_name utils.model.promptmr.PromptMR \
+--step 3 \
+--task brain \
+--acceleration 8 \
+--gradient_accumulation_steps 2 \
+--num_epochs 45 \
+--warmup_epochs 0 \
+--max_lr 1e-4 \
+--min_lr 0 \
+--num_cascades 8 \
+--num_adj_slices 3 \
+--n_feat0 48 \
+--feature_dim "64 80 96" \
+--prompt_dim "16 32 48" \
+--sens_n_feat0 12 \
+--sens_feature_dim "16 20 24" \
+--sens_prompt_dim "4 8 12" \
+--len_prompt "5 5 5" \
+--prompt_size "64 32 16" \
+--n_enc_cab "2 3 3" \
+--n_dec_cab "2 2 3" \
+--n_skip_cab "1 1 1" \
+--n_bottleneck_cab 3 \
+--n_buffer 4 \
+--n_history 0 \
+--no_use_ca True \
+--learnable_prompt False \
+--adaptive_input True \
+--use_sens_adj True \
+--compute_sens_per_coil True \
+--mask_type fixed \
+--deterministic True \
+--seed 430 \
+--volume_sample_rate 1.0 \
+--save_artifact False \
+--restart_from_checkpoint ../result/test_brain_acc8/checkpoints/step2/epoch-30 \
+--continue_lr_scheduler False \
+--aug_on True \
+--aug_delay 30 \
+--aug_strength 1.0 \
+--aug_exp_decay 100.0 \
+--aug_weight_fliph 0.5 \
+--aug_weight_flipv 0.5 \
+--aug_weight_rot90 0 \
+--aug_weight_translation 0.5 \
+--aug_weight_rotation 0 \
+--aug_weight_shearing 0.5 \
+--aug_weight_scaling 0.5 \
+--aug_max_translation_x 0.05 \
+--aug_max_translation_y 0.05 \
+--aug_max_rotation 5 \
+--aug_max_shearing_x 5 \
+--aug_max_shearing_y 5 \
+--aug_max_scaling 0.1

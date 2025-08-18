@@ -41,12 +41,6 @@ if __name__ == '__main__':
         parser.add_argument('--max_key', type=str, default='max')
         parser.add_argument('--mask_type', type=str, default='fixed')
         parser.add_argument('--volume_sample_rate', type=float, default=1.0)
-    if args.model_name.endswith('VarNet'):
-        parser.add_argument('--cascade', type=int, default=1)
-        parser.add_argument('--chans', type=int, default=9)
-        parser.add_argument('--sens_chans', type=int, default=4)
-        parser.add_argument('--pools', type=int, default=4)
-        parser.add_argument('--sens_pools', type=int, default=4)
     elif args.model_name.endswith('PromptMR'):
         parser.add_argument('--num_cascades', type=int, default=1)
         parser.add_argument('--num_adj_slices', type=int, default=1)
@@ -88,11 +82,13 @@ if __name__ == '__main__':
         parser.add_argument('--aug_max_scaling', type=float, default=0.25)
 
     parser.add_argument('--net_name', type=Path, default='test_varnet')
+    parser.add_argument('--step', type=int, default=1)
     parser.add_argument('--data_path_train', type=Path, default='../Data/train/')
     parser.add_argument('--data_path_val', type=Path, default='../Data/val/')
     parser.add_argument('--gradient_accumulation_steps', type=int, default=1)
     parser.add_argument('--num_epochs', type=int, default=5)
     parser.add_argument('--warmup_epochs', type=int, default=0)
+    parser.add_argument('--stop_epoch', type=int, default=-1)
     parser.add_argument('--max_lr', type=float, default=1e-3)
     parser.add_argument('--min_lr', type=float, default=0)
     parser.add_argument('--deterministic', type=str_to_bool, default=False)
