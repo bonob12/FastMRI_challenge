@@ -19,8 +19,8 @@ python -m venv venv
 source venv/bin/activate
 
 # Install dependencies
-sh requirements.sh
-sh apt.sh
+sh scripts/requirements.sh
+sh scripts/apt.sh
 ``` 
 
 ## Data Preparation
@@ -55,18 +55,25 @@ root
 
 ## Training
 
-Parallel training on multiple GPUs is recommended. Using tmux is optional but convenient:
+Parallel training on multiple GPUs is recommended. Using tmux is optional but useful:
 
 ``` bash
-# use tmux for convinience (not necessary)
+# make session 'train'
 tmux new -s train
-tmux attach -t train
 
-# detach
+# chek session list
+tmux ls
+
+# attach to session and do something...
+tmux attach -t train
+...
+
+# detach from session
 ctrl b + d
 
-# attach
-tmux attach -t train
+# detach and delete session
+exit
+
 ```
 
 **Train Models**
@@ -158,7 +165,7 @@ Reconstruct images from ../Data/leaderboard. Reconstructed images are saved in:
 ../result/test_reconstruct/reconstructions_leaderboard
 ```
 
-Can modify reconstruct.sh to use specific checkpoint paths:
+Can modify scripts/reconstruct.sh to use specific checkpoint paths:
 
 ``` bash
 # Example
@@ -171,7 +178,13 @@ brain_acc4_checkpoint ../artifacts/brain_acc4
 
 ``` bash
 sh scripts/reconstruct.sh
-
 sh scripts/leaderboard_eval.sh
 ```
 
+## Result
+
+``` bash
+Total SSIM:
+acc4: 
+acc8: 
+```
