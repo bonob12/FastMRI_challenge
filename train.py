@@ -41,7 +41,7 @@ if __name__ == '__main__':
         parser.add_argument('--max_key', type=str, default='max')
         parser.add_argument('--mask_type', type=str, default='fixed')
         parser.add_argument('--volume_sample_rate', type=float, default=1.0)
-    elif args.model_name.endswith('PromptMR'):
+    if args.model_name.endswith('PromptMR'):
         parser.add_argument('--num_cascades', type=int, default=1)
         parser.add_argument('--num_adj_slices', type=int, default=1)
         parser.add_argument('--n_feat0', type=int, default=12)
