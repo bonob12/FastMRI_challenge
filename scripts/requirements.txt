@@ -1,3 +1,4 @@
+torch
 numpy
 requests
 tqdm
@@ -6,6 +7,3 @@ scikit-image
 pyyaml
 opencv-python
 matplotlib
-wandb
-deepspeed
-mpi4py
