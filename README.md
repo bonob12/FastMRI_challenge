@@ -279,13 +279,9 @@ compute_sens_per_coil: true
 * Gradient checkpointing
 
 * Learning schedule
-  - 15 + 15 + 15 = 45 epochs for each (Total 180 Epochs)
-
-    1~15 epoch: no augment, fixed mask, 1 warmup epoch, cosine annealing from 3e-4 to 0 (max_epoch: 20)
-    
-    16~30 epoch: MRAugment(fliph, translation, shear, scale), fixed mask, no warmup, cosine annealing from 2e-4 to 0 (max_epoch: 35)
-    
-    31~45 epoch: Brain – add flipv aug, fixed mask / Knee – no aug, random mask, cosine annealing form 1e-4 to 0 (max_epoch: 45)
+  - 1~15 epoch: no augment, fixed mask, 1 warmup epoch, cosine annealing from 3e-4 to 0 (max_epoch: 20)
+  - 16~30 epoch: MRAugment(fliph, translation, shear, scale), fixed mask, no warmup, cosine annealing from 2e-4 to 0 (max_epoch: 35)
+  - 31~45 epoch: Brain – add flipv aug, fixed mask / Knee – no aug, random mask, cosine annealing form 1e-4 to 0 (max_epoch: 45)
 
     The following schedule was applied because previously, the schedule was only planned up to 35 epochs. However, due to the allocation of an additional GPU, we had more capacity and were able to extend it to 45 epochs. At this time, we applied different data processing methods for the brain and knee. This was because during epochs 15 to 30, when we applied MRAugment, the brain was robust to transformations, while the knee was vulnerable. Therefore, we applied stronger transformations to the brain, and for the knee, instead of using MRAugment, we altered the mask pattern to achieve a weak augmentation effect.
 
