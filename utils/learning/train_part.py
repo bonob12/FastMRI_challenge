@@ -257,9 +257,14 @@ def train(args):
     else:
         start_epoch = 0
 
+    if args.stop_epoch == -1:
+        stop_epoch = args.num_epochs
+    else:
+        stop_epoch = args.stop_epoch
+
     loss_log = np.empty((0, 2))
-    for epoch in range(start_epoch, args.num_epochs):
-        print(f'Epoch [{epoch + 1:2d}/{args.num_epochs:2d}] ............... {args.net_name} ...............')
+    for epoch in range(start_epoch, stop_epoch):
+        print(f'Epoch [{epoch + 1:2d}/{stop_epoch:2d}] ............... {args.net_name} ...............')
         
         if hasattr(train_loader.dataset, 'transform'):
             train_loader.dataset.transform.augmentor.epoch = epoch + 1
@@ -277,9 +282,6 @@ def train(args):
             },
             step=(epoch+1)*steps_per_epoch-1
         )
-
-        if epoch + 1 == args.stop_epoch:
-            break
 
     if wandb.run is not None:
         wandb.finish()
