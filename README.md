@@ -268,22 +268,25 @@ compute_sens_per_coil: true
 ## 5. Implementation
 
 * Optimizer: Deepspeed CPU Adam (ADAMW) 
-    - weight decay: 1e-4
+  - weight decay: 1e-4
 
 * SSIM loss with Image mask
-    - same as leaderboard SSIM calculation
+  - same as leaderboard SSIM calculation
 
 * Gradient accumulation
-    - 2 steps
+  - 2 steps
 
 * Gradient checkpointing
 
 * Learning schedule
-    - 15 + 15 + 15 = 45 epochs for each (Total 180 Epochs)
-    - 1~15 epoch: no augment, fixed mask, 1 warmup epoch, cosine annealing from 3e-4 to 0 (max_epoch: 20)
-    - 16~30 epoch: MRAugment(fliph, translation, shear, scale), fixed mask, no warmup, cosine annealing from 2e-4 to 0 (max_epoch: 35)
-    - 31~45 epoch: Brain – add flipv aug, fixed mask / Knee – no aug, random mask, cosine annealing form 1e-4 to 0 (max_epoch: 45)
+  - 15 + 15 + 15 = 45 epochs for each (Total 180 Epochs)
 
-The following schedule was applied because previously, the schedule was only planned up to 35 epochs. However, due to the allocation of an additional GPU, we had more capacity and were able to extend it to 45 epochs. At this time, we applied different data processing methods for the brain and knee. This was because during epochs 15 to 30, when we applied MRAugment, the brain was robust to transformations, while the knee was vulnerable. Therefore, we applied stronger transformations to the brain, and for the knee, instead of using MRAugment, we altered the mask pattern to achieve a weak augmentation effect.
+    1~15 epoch: no augment, fixed mask, 1 warmup epoch, cosine annealing from 3e-4 to 0 (max_epoch: 20)
+    
+    16~30 epoch: MRAugment(fliph, translation, shear, scale), fixed mask, no warmup, cosine annealing from 2e-4 to 0 (max_epoch: 35)
+    
+    31~45 epoch: Brain – add flipv aug, fixed mask / Knee – no aug, random mask, cosine annealing form 1e-4 to 0 (max_epoch: 45)
 
-On the other hand, we considered further training the model for several mask types and applying MoE for each mask, given that the mask patterns of the private dataset were unclear. However, we did not implement this, as it would involve using hidden models solely for the private dataset without any evaluation on the leaderboard, which could raise concerns regarding the competition’s intent and fairness.
+    The following schedule was applied because previously, the schedule was only planned up to 35 epochs. However, due to the allocation of an additional GPU, we had more capacity and were able to extend it to 45 epochs. At this time, we applied different data processing methods for the brain and knee. This was because during epochs 15 to 30, when we applied MRAugment, the brain was robust to transformations, while the knee was vulnerable. Therefore, we applied stronger transformations to the brain, and for the knee, instead of using MRAugment, we altered the mask pattern to achieve a weak augmentation effect.
+
+    On the other hand, we considered further training the model for several mask types and applying MoE for each mask, given that the mask patterns of the private dataset were unclear. However, we did not implement this, as it would involve using hidden models solely for the private dataset without any evaluation on the leaderboard, which could raise concerns regarding the competition’s intent and fairness.
