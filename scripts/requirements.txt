@@ -6,3 +6,6 @@ scikit-image
 pyyaml
 opencv-python
 matplotlib
+wandb
+deepspeed
+mpi4py
