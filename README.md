@@ -8,7 +8,10 @@ This repository contains the implementation of Team EJ's 2025 FastMRI challenge
 # Clone repository
 git clone https://github.com/bonob12/FastMRI_challenge.git
 
-# Password (read_only permisson for this repository)
+# Username (doesn't matter)
+aaaa
+
+# Password (read_only permission token for this repository)
 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
 
 # Enter repository
