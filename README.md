@@ -12,20 +12,14 @@ This repository contains the implementation of Team EJ's 2025 FastMRI challenge
 # Clone repository
 git clone https://github.com/bonob12/FastMRI_challenge.git
 
-# Username (doesn't matter)
-aaaa
-
-# Password (read_only permission token for this repository)
-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
-
 # Enter repository
 cd FastMRI_challenge
 
-# Create virtual environment
+# Create virtual environment if needed
 python -m venv venv
 source venv/bin/activate
 
-# Install dependencies
+# Install dependencies if needed
 sh scripts/requirements.sh
 sh scripts/apt.sh
 ``` 
@@ -85,14 +79,15 @@ exit
 
 **Train Models**
 
-Weights & Biases (wandb) is used to save and visualize loss logs, so if wandb login is needed use:
+Weights & Biases (wandb) is used to save and visualize loss logs, so if wandb login is needed, use:
 
 ```bash
 username: bono_b12
 passowrd: 9db12a56848bf3208d13304186875ce79ffdb6c7
 ```
 
-Although the CNN training completes within 5 minutes, the brain_acc4, brain_acc8, knee_acc4, and knee_acc8 experiments are trained for a total of 45 epochs each (15 + 15 + 15), with each block of 15 epochs requiring roughly 2–3 days.
+CNN training completes within 5 minutes
+Each brain_acc4, brain_acc8, knee_acc4, and knee_acc8 experiments are trained for a total of 45 epochs (15 + 15 + 15), with each block of 15 epochs requiring roughly 2–3 days.
 
 ``` bash
 # train cnn
@@ -181,15 +176,6 @@ Reconstruct images from ../Data/leaderboard. Reconstructed images are saved in:
 ../result/test_reconstruct/reconstructions_leaderboard
 ```
 
-Can modify scripts/reconstruct.sh to use specific checkpoint paths:
-
-``` bash
-# Example
-brain_acc4_checkpoint ../result/test_brain_acc4/checkpoints/step3/epoch-45
-->
-brain_acc4_checkpoint ../artifacts/brain_acc4
-```
-
 **Run reconstruction and evaluation**
 
 ``` bash
@@ -221,17 +207,17 @@ Although we used the existing seed_fix() function, we found that DeepSpeed still
 
 Furthermore, we fixed the seeds for potential sources of randomness, including worker_init_fn in data loading, mask generation, and the augmentor in the data processing stage.
 
-In conclusion, inspection of the first 100–200 steps of the loss across all 12 cases (brain/knee, acc4/acc8, and steps 1–3) confirmed that the training was perfectly reproducible.
+In conclusion, inspection of the first 100–200 steps of the loss across all 12 cases (brain/knee, acc4/acc8, and steps 1–3) confirmed that the training was exactly reproducible.
 
 **wandb loss log**
 
-Although we saved the train_loss for each epoch as loss_log.npy in the ../result folder, using Weights & Biases (wandb) allows us to visualize not only the training loss but also step-wise loss, learning rate, and other metrics at a glance. The corresponding wandb workspace has been set to public, so running the experiment allows you to check the logs on the wandb web interface: https://wandb.ai/bono_b12-seoul-national-university/FastMRI_challenge
+Although the run saves train_loss for each epoch as loss_log.npy in the ../result folder, using Weights & Biases (wandb) allows us to visualize not only the training loss but also step-wise loss, learning rate, and other metrics at a glance. The corresponding wandb workspace has been set to public, so running the experiment allows you to check the logs on the wandb web interface: https://wandb.ai/bono_b12-seoul-national-university/FastMRI_challenge
 
 Detailed loss_log recorded via wandb has also been compiled into an Excel file and attached to the email, which can be used to verify reproducibility.
 
 ---
 
-## 3. Model Description
+## 3. Model
 
 Used Model: PromptMR+ (https://github.com/hellopipu/PromptMR-plus)
 
@@ -267,7 +253,7 @@ compute_sens_per_coil: true
 
 ---
 
-## 4. Data Processing Description
+## 4. Data Processing
 
 * No validation
 
@@ -279,19 +265,21 @@ compute_sens_per_coil: true
 
 ---
 
-## 5. Implementation Description
+## 5. Implementation
 
-* Optimizer: Deepspeed CPU Adam (ADAMW)
-weight decay: 1e-4
+* Optimizer: Deepspeed CPU Adam (ADAMW) 
+    - weight decay: 1e-4
 
 * SSIM loss with Image mask
-same as leaderboard SSIM calculation
+    - same as leaderboard SSIM calculation
 
-* Gradient accumulation: 2 steps
+* Gradient accumulation
+    - 2 steps
 
 * Gradient checkpointing
 
 * Learning schedule
+
 15 + 15 + 15 = 45 epochs for each (Total 180 Epochs)
 
 1~15 epoch: no augment, fixed mask, 1 warmup epoch, cosine annealing from 3e-4 to 0 (max_epoch: 20)
