@@ -86,8 +86,11 @@ username: bono_b12
 passowrd: 9db12a56848bf3208d13304186875ce79ffdb6c7
 ```
 
-CNN training completes within 5 minutes
+CNN experiment is trained for a total of 5 epochs and completes within 5 minutes
+
 Each brain_acc4, brain_acc8, knee_acc4, and knee_acc8 experiments are trained for a total of 45 epochs (15 + 15 + 15), with each block of 15 epochs requiring roughly 2–3 days.
+
+Each of step2 and step3 resumes training from the last checkpoint of the previous step. Therefore, for faster reproducibility verification, the final checkpoints of step1 and step2 have been saved in the ../artifacts folder. For example, if you set the --restart_from_checkpoint option in scripts/train_brain_acc4_step2 to ../artifacts/test_brain_acc4_epoch-15, you can increase parallelism and perform reproducibility verification.
 
 ``` bash
 # train cnn

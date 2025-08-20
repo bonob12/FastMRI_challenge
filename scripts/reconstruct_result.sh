@@ -5,4 +5,4 @@ python reconstruct.py \
 --brain_acc4_checkpoint ../result/test_brain_acc4/checkpoints/step3/epoch-45 \
 --brain_acc8_checkpoint ../result/test_brain_acc8/checkpoints/step3/epoch-45 \
 --knee_acc4_checkpoint ../result/test_knee_acc4/checkpoints/step3/epoch-45 \
---knee_acc8_checkpoint ../result/test_knee_acc8/checkpoints/step3/epoch-45
+--knee_acc8_checkpoint ../result/test_knee_acc8/checkpoints/step3/epoch-44
