@@ -30,7 +30,7 @@ python train.py \
 --adaptive_input True \
 --use_sens_adj True \
 --compute_sens_per_coil True \
---mask_type random_offset \
+--mask_type random_spaced \
 --deterministic True \
 --seed 430 \
 --volume_sample_rate 1.0 \
