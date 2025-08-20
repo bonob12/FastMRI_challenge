@@ -30,6 +30,8 @@ Validation dataset is not used. The training dataset must be separated into brai
 
 ``` bash
 root
+├── artifacts
+│   └── ...
 ├── Data
 │   ├── leaderboard
 │   │   └── ...
@@ -83,7 +85,7 @@ Weights & Biases (wandb) is used to save and visualize loss logs, so if wandb lo
 
 ```bash
 username: bono_b12
-passowrd: 9db12a56848bf3208d13304186875ce79ffdb6c7
+key: 9db12a56848bf3208d13304186875ce79ffdb6c7
 ```
 
 CNN experiment is trained for a total of 5 epochs and completes within 5 minutes
@@ -288,4 +290,4 @@ compute_sens_per_coil: true
 
     The following schedule was applied because previously, the schedule was only planned up to 35 epochs. However, due to the allocation of an additional GPU, we had more capacity and were able to extend it to 45 epochs. At this time, we applied different data processing methods for the brain and knee. This was because during epochs 15 to 30, when we applied MRAugment, the brain was robust to transformations, while the knee was vulnerable. Therefore, we applied stronger transformations to the brain, and for the knee, instead of using MRAugment, we altered the mask pattern to achieve a weak augmentation effect.
 
-    On the other hand, we considered further training the model for several mask types and applying MoE for each mask, given that the mask patterns of the private dataset were unclear. However, we did not implement this, as it would involve using hidden models solely for the private dataset without any evaluation on the leaderboard, which could raise concerns regarding the competition’s intent and fairness.
+    On the other hand, we considered training the model for several mask types and applying MoE for each mask, given that the mask patterns of the private dataset were unclear. However, we did not implement this, as it would involve using hidden models solely for the private dataset without any evaluation on the leaderboard, which could raise concerns regarding the competition’s intent and fairness.
