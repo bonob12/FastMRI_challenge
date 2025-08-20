@@ -197,9 +197,11 @@ sh scripts/leaderboard_eval.sh
 ### Result
 
 ``` bash
-Total SSIM:
-acc4: 
-acc8: 
+Reconstruction Time = 1236.02s
+
+Total SSIM: 0.9754
+acc4: 0.9786
+acc8: 0.9721
 ```
 
 ---
