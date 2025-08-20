@@ -94,6 +94,14 @@ Each brain_acc4, brain_acc8, knee_acc4, and knee_acc8 experiments are trained fo
 
 Each of step2 and step3 resumes training from the last checkpoint of the previous step. Therefore, for faster reproducibility verification, the final checkpoints of step1 and step2 have been saved in the ../artifacts folder. For example, if you set the --restart_from_checkpoint option in scripts/train_brain_acc4_step2 to ../artifacts/test_brain_acc4_epoch-15, you can increase parallelism and perform reproducibility verification.
 
+In addition, We have uploaded the checkpoints of the final epochs of step1 and step2, as well as the epoch used for reconstruction in step3, to the W&B project as artifacts. (wandb web interface: https://wandb.ai/bono_b12-seoul-national-university/FastMRI_challenge) This allows you to conveniently retrieve them when using multiple servers. From the root/ folder, you can run a command like:
+
+```bash
+wandb artifact get bono_b12-seoul-national-university/FastMRI_challenge/brain_acc4_step1_epoch-15:v0
+```
+
+Note that in this case a folder with :v0 appended to its name will be created, so please be careful with the naming when using reconstruct_artifact.sh.
+
 ``` bash
 # train cnn
 sh scripts/train_cnn.sh
